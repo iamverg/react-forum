@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomeGuest from "./components/HomeGuest";
@@ -9,9 +10,15 @@ import Terms from "./components/Terms";
 function Main() {
   return (
     <>
-      <Header />
-      <HomeGuest />
-      <Footer />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomeGuest />} />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/terms" element={<Terms />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }
