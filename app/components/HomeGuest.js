@@ -1,8 +1,9 @@
 import React from "react";
 import Container from "./Container";
+import Page from "./Page";
 export default function HomeGuest() {
   return (
-    <Container wide={true}>
+    <Page wide={true} title="Welcome!">
       <div className="row align-items-center">
         <div className="col-lg-7 py-3 py-md-5">
           <h1 className="display-3">Remember Writing?</h1>
@@ -16,7 +17,7 @@ export default function HomeGuest() {
         <div className="col-lg-5 pl-lg-5 pb-3 py-lg-5">
           <form>
             <div className="form-group">
-              <label for="username-register" className="text-muted mb-1">
+              <label htmlFor="username-register" className="text-muted mb-1">
                 <small>Username</small>
               </label>
               <input
@@ -42,7 +43,7 @@ export default function HomeGuest() {
               />
             </div>
             <div className="form-group">
-              <label for="password-register" className="text-muted mb-1">
+              <label htmlFor="password-register" className="text-muted mb-1">
                 <small>Password</small>
               </label>
               <input
@@ -62,6 +63,6 @@ export default function HomeGuest() {
           </form>
         </div>
       </div>
-    </Container>
+    </Page>
   );
 }
