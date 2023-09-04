@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function HomeGuest() {
   return (
     <div className="container py-md-5">

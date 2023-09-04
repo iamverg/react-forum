@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Terms() {
   return (
     <div className="container container--narrow py-md-5">
