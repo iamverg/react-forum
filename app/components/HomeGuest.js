@@ -1,5 +1,4 @@
 import React from "react";
-import Container from "./Container";
 import Page from "./Page";
 export default function HomeGuest() {
   return (
