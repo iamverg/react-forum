@@ -13,6 +13,11 @@ export default function HeaderLoggedOut(props) {
       });
       if (response.data) {
         console.log(response.data);
+
+        localStorage.setItem("cAppToken", response.data.token);
+        localStorage.setItem("cAppUsername", response.data.username);
+        localStorage.setItem("cAppAvatar", response.data.avatar);
+
         props.setLoggedIn(true);
       } else {
         console.log("Incorrect username / password.");
