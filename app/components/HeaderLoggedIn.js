@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function HeaderLoggedIn() {
+export default function HeaderLoggedIn(props) {
   return (
     <div className="flex-row my-3 my-md-0">
       <a href="#" className="text-white mr-2 header-search-icon">
@@ -19,7 +19,12 @@ export default function HeaderLoggedIn() {
       <a className="btn btn-sm btn-success mr-2" href="/create-post">
         Create Post
       </a>
-      <button className="btn btn-sm btn-secondary">Sign Out</button>
+      <button
+        onClick={() => props.setLoggedIn(false)}
+        className="btn btn-sm btn-secondary"
+      >
+        Sign Out
+      </button>
     </div>
   );
 }
