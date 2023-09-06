@@ -8,6 +8,9 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Terms from "./components/Terms";
 import CreatePost from "./components/CreatePost";
+import Axios from "axios";
+
+Axios.defaults.baseURL = "http://localhost:8080";
 
 function Main() {
   const [loggedIn, setLoggedIn] = useState(
