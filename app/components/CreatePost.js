@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Page from "./Page";
 import Axios from "axios";
-export default function CreatePost() {
+export default function CreatePost(props) {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ export default function CreatePost() {
         token: localStorage.getItem("cAppToken")
       });
       // Redirect to new post url.
+      props.addFlashMessage("Congrats, your successfuly created a post.");
       navigate("/post/" + response.data);
       console.log("New post was created.");
     } catch (error) {
