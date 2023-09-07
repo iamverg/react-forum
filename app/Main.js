@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { useImmerReducer } from "use-immer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -24,13 +24,19 @@ Axios.defaults.baseURL = "http://localhost:8080";
 function Main() {
   const initialState = {
     loggedIn: Boolean(localStorage.getItem("cAppToken")),
-    flashMessages: []
+    flashMessages: [],
+    user: {
+      token: localStorage.getItem("cAppToken"),
+      username: localStorage.getItem("cAppUsername"),
+      avatar: localStorage.getItem("cAppAvatar")
+    }
   };
 
   function ourReducer(draft, action) {
     switch (action.type) {
       case "login":
         draft.loggedIn = true;
+        draft.user = action.data;
         break;
       case "logout":
         draft.loggedIn = false;
@@ -44,7 +50,17 @@ function Main() {
   }
 
   const [state, dispatch] = useImmerReducer(ourReducer, initialState);
-
+  useEffect(() => {
+    if (state.loggedIn) {
+      localStorage.setItem("cAppToken", state.user.token);
+      localStorage.setItem("cAppUsername", state.user.username);
+      localStorage.setItem("cAppAvatar", state.user.avatar);
+    } else {
+      localStorage.removeItem("cAppToken");
+      localStorage.removeItem("cAppUsername");
+      localStorage.removeItem("cAppAvatar");
+    }
+  }, [state.loggedIn]);
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>

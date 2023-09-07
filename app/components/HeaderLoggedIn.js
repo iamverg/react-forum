@@ -7,9 +7,6 @@ export default function HeaderLoggedIn() {
 
   function handleLogout() {
     appDispatch({ type: "logout" });
-    localStorage.removeItem("cAppToken");
-    localStorage.removeItem("cAppUsername");
-    localStorage.removeItem("cAppAvatar");
   }
 
   return (

@@ -15,13 +15,7 @@ export default function HeaderLoggedOut() {
         password
       });
       if (response.data) {
-        console.log(response.data);
-
-        localStorage.setItem("cAppToken", response.data.token);
-        localStorage.setItem("cAppUsername", response.data.username);
-        localStorage.setItem("cAppAvatar", response.data.avatar);
-
-        appDispatch({ type: "login" });
+        appDispatch({ type: "login", data: response.data });
       } else {
         console.log("Incorrect username / password.");
       }
