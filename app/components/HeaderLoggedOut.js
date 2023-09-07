@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Axios from "axios";
-export default function HeaderLoggedOut(props) {
+import ExampleContext from "../ExampleContext";
+
+export default function HeaderLoggedOut() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const { setLoggedIn } = useContext(ExampleContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -18,7 +21,7 @@ export default function HeaderLoggedOut(props) {
         localStorage.setItem("cAppUsername", response.data.username);
         localStorage.setItem("cAppAvatar", response.data.avatar);
 
-        props.setLoggedIn(true);
+        setLoggedIn(true);
       } else {
         console.log("Incorrect username / password.");
       }

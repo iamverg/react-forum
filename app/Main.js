@@ -11,6 +11,7 @@ import CreatePost from "./components/CreatePost";
 import ViewSinglePost from "./components/ViewSinglePost";
 import FlashMessages from "./components/FlashMessages";
 import Axios from "axios";
+import ExampleContext from "./ExampleContext";
 
 Axios.defaults.baseURL = "http://localhost:8080";
 
@@ -24,23 +25,20 @@ function Main() {
     setFlashMessages((prev) => prev.concat(msg));
   }
   return (
-    <>
+    <ExampleContext.Provider value={{ addFlashMessage, setLoggedIn }}>
       <BrowserRouter>
         <FlashMessages messages={flashMessages} />
-        <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+        <Header loggedIn={loggedIn} />
         <Routes>
           <Route path="/" element={loggedIn ? <Home /> : <HomeGuest />} />
           <Route path="/post/:id" element={<ViewSinglePost />} />
-          <Route
-            path="/create-post"
-            element={<CreatePost addFlashMessage={addFlashMessage} />}
-          />
+          <Route path="/create-post" element={<CreatePost />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>
         <Footer />
       </BrowserRouter>
-    </>
+    </ExampleContext.Provider>
   );
 }
 const root = ReactDOM.createRoot(document.getElementById("app"));

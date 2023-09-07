@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Page from "./Page";
 import Axios from "axios";
-export default function CreatePost(props) {
+import ExampleContext from "../ExampleContext";
+
+export default function CreatePost() {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
   const navigate = useNavigate();
+  const { addFlashMessage } = useContext(ExampleContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -16,7 +19,7 @@ export default function CreatePost(props) {
         token: localStorage.getItem("cAppToken")
       });
       // Redirect to new post url.
-      props.addFlashMessage("Congrats, your successfuly created a post.");
+      addFlashMessage("Congrats, your successfuly created a post!");
       navigate("/post/" + response.data);
       console.log("New post was created.");
     } catch (error) {

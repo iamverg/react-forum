@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-export default function HeaderLoggedIn(props) {
+import ExampleContext from "../ExampleContext";
+export default function HeaderLoggedIn() {
+  const { setLoggedIn } = useContext(ExampleContext);
   function handleLogout() {
-    props.setLoggedIn(false);
+    setLoggedIn(false);
     localStorage.removeItem("cAppToken");
     localStorage.removeItem("cAppUsername");
     localStorage.removeItem("cAppAvatar");
