@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Page from "./Page";
 import Axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 import LoadingDotsIcon from "./LoadingDotsIcon";
 
 export default function ViewSinglePost() {
@@ -65,7 +66,24 @@ export default function ViewSinglePost() {
       </p>
 
       <div className="body-content">
-        <p>{post.body}</p>
+        <ReactMarkdown
+          children={post.body}
+          allowElements={[
+            "p",
+            "br",
+            "strong",
+            "em",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "ol",
+            "ul",
+            "li"
+          ]}
+        />
       </div>
     </Page>
   );
