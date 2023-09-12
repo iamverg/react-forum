@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import LoadingDotsIcon from "./LoadingDotsIcon";
 export default function ComponentName() {
   const { username } = useParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +21,7 @@ export default function ComponentName() {
     fetchPosts();
   }, []);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingDotsIcon />;
   }
   return (
     <div className="list-group">
