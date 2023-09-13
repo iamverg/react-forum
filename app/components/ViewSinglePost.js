@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Page from "./Page";
+import NotFound from "./NotFound";
 import Axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
@@ -29,6 +30,10 @@ export default function ViewSinglePost() {
       ourRequest.cancel();
     };
   }, []);
+
+  if (!isLoading && !post) {
+    return <NotFound />;
+  }
 
   if (isLoading) {
     return (

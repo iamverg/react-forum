@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import { useImmerReducer } from "use-immer";
 import Page from "./Page";
 import Axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import LoadingDotsIcon from "./LoadingDotsIcon";
 import StateContext from "../StateContext";
 import DispatchContext from "../DispatchContext";
+import NotFound from "./NotFound";
 
 export default function EditPost() {
+  const navigate = useNavigate();
   const appState = useContext(StateContext);
   const appDispatch = useContext(DispatchContext);
   const initialState = {
@@ -24,7 +26,8 @@ export default function EditPost() {
     isFetching: true,
     isSaving: false,
     id: useParams().id,
-    sendCount: 0
+    sendCount: 0,
+    notFound: false
   };
   function ourReducer(draft, action) {
     switch (action.type) {
@@ -64,6 +67,9 @@ export default function EditPost() {
           draft.body.message = "You must provide body content";
         }
         break;
+      case "notFound":
+        draft.notFound = true;
+        break;
     }
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initialState);
@@ -81,7 +87,18 @@ export default function EditPost() {
         const response = await Axios.get(`/post/${state.id}`, {
           cancelToken: ourRequest.token
         });
-        dispatch({ type: "fetchComplete", value: response.data });
+        if (response.data) {
+          dispatch({ type: "fetchComplete", value: response.data });
+          if (appState.user.username != response.data.author.username) {
+            appDispatch({
+              type: "flashMessage",
+              value: "You do not have permission to edit this post"
+            });
+            navigate("/");
+          }
+        } else {
+          dispatch({ type: "notFound" });
+        }
       } catch (error) {
         console.log(error);
       }
@@ -122,6 +139,9 @@ export default function EditPost() {
     }
   }, [state.sendCount]);
 
+  if (state.notFound) {
+    return <NotFound />;
+  }
   if (state.isFetching) {
     return (
       <Page title="...">
@@ -132,7 +152,10 @@ export default function EditPost() {
 
   return (
     <Page title="Edit Post">
-      <form onSubmit={submitHandler}>
+      <Link className="small font-weight-bold" to={`/post/${state.id}`}>
+        &laquo; Back to post permalink
+      </Link>
+      <form className="mt-3" onSubmit={submitHandler}>
         <div className="form-group">
           <label htmlFor="post-title" className="text-muted mb-1">
             <small>Title</small>
