@@ -20,7 +20,7 @@ export default function Footer() {
       <p className="m-0">
         Copyright &copy; {new Date().getFullYear()}
         <a href="/" className="text-muted">
-          ComplexApp
+          Forum
         </a>
         . All rights reserved.
       </p>
