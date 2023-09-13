@@ -11,7 +11,7 @@ export default function Header() {
       <div className="container d-flex flex-column flex-md-row align-items-center p-3">
         <h4 className="my-0 mr-md-auto font-weight-normal">
           <Link to="/" className="text-white">
-            ComplexApp
+            Forum
           </Link>
         </h4>
         {appState.loggedIn ? <HeaderLoggedIn /> : <HeaderLoggedOut />}
