@@ -46,14 +46,14 @@ export default function ViewSinglePost() {
       <div className="d-flex justify-content-between">
         <h2>{post.title}</h2>
         <span className="pt-2">
-          <a
-            href="#"
+          <Link
+            to={`/post/${post._id}/edit`}
             data-tooltip-content="Edit"
             data-tooltip-id="edit"
             className="text-primary mr-2"
           >
             <i className="fas fa-edit"></i>
-          </a>
+          </Link>
           <Tooltip id="edit" class="custom-tooltip" />{" "}
           <a
             className="delete-post-button text-danger"
