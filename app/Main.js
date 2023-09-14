@@ -21,6 +21,7 @@ import FlashMessages from "./components/FlashMessages";
 import Profile from "./components/Profile";
 import EditPost from "./components/EditPost";
 import NotFound from "./components/NotFound";
+import Search from "./components/Search";
 
 Axios.defaults.baseURL = "http://localhost:8080";
 
@@ -32,7 +33,8 @@ function Main() {
       token: localStorage.getItem("cAppToken"),
       username: localStorage.getItem("cAppUsername"),
       avatar: localStorage.getItem("cAppAvatar")
-    }
+    },
+    isSearchOpen: false
   };
 
   function ourReducer(draft, action) {
@@ -46,6 +48,12 @@ function Main() {
         break;
       case "flashMessage":
         draft.flashMessages.push(action.value);
+        break;
+      case "openSearch":
+        draft.isSearchOpen = true;
+        break;
+      case "closeSearch":
+        draft.isSearchOpen = false;
         break;
       default:
         break;
@@ -83,6 +91,7 @@ function Main() {
             <Route path="/terms" element={<Terms />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          {state.isSearchOpen ? <Search /> : ""}
           <Footer />
         </BrowserRouter>
       </DispatchContext.Provider>
