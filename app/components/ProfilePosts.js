@@ -25,7 +25,7 @@ export default function ComponentName() {
     return () => {
       ourRequest.cancel();
     };
-  }, []);
+  }, [username]);
   if (isLoading) {
     return <LoadingDotsIcon />;
   }
