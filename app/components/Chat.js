@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import StateContext from "../StateContext";
 import DispatchContext from "../DispatchContext";
 import { useImmer } from "use-immer";
@@ -7,6 +8,7 @@ const socket = io("http://localhost:8080");
 
 export default function Chat() {
   const chatField = useRef(null);
+  const chatLog = useRef(null);
   const appState = useContext(StateContext);
   const appDispatch = useContext(DispatchContext);
 
@@ -28,6 +30,10 @@ export default function Chat() {
       });
     });
   }, []);
+
+  useEffect(() => {
+    chatLog.current.scrollTop = chatLog.current.scrollHeight;
+  }, [state.chatMessages]);
   function handleFieldChange(e) {
     const value = e.target.value;
     setState((draft) => {
@@ -70,7 +76,7 @@ export default function Chat() {
           <i className="fas fa-times-circle"></i>
         </span>
       </div>
-      <div id="chat" className="chat-log">
+      <div ref={chatLog} id="chat" className="chat-log">
         {state.chatMessages.map((message, index) => {
           if (message.username == appState.user.username) {
             return (
@@ -84,14 +90,14 @@ export default function Chat() {
           }
           return (
             <div key={index} className="chat-other">
-              <a href="#">
+              <Link to={`/profile/${message.username}`}>
                 <img className="avatar-tiny" src={message.avatar} />
-              </a>
+              </Link>
               <div className="chat-message">
                 <div className="chat-message-inner">
-                  <a href="#">
+                  <Link to={`/profile/${message.username}`}>
                     <strong>{message.username}: </strong>
-                  </a>
+                  </Link>
                   {message.message}
                 </div>
               </div>
