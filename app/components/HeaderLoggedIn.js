@@ -29,6 +29,7 @@ export default function HeaderLoggedIn() {
       </a>
       <Tooltip place="bottom" id="search" className="custom-tooltip" />{" "}
       <span
+        onClick={() => appDispatch({ type: "toggleChat" })}
         className="mr-2 header-chat-icon text-white"
         data-tooltip-content="Chat"
         data-tooltip-id="chat"
