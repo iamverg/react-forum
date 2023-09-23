@@ -20,6 +20,7 @@ export default function Chat() {
   useEffect(() => {
     if (appState.isChatOpen) {
       chatField.current.focus();
+      appDispatch({ type: "clearUnreadChatCount" });
     }
   }, [appState.isChatOpen]);
 
@@ -33,7 +34,11 @@ export default function Chat() {
 
   useEffect(() => {
     chatLog.current.scrollTop = chatLog.current.scrollHeight;
+    if (state.chatMessages.length && !appState.isChatOpen) {
+      appDispatch({ type: "incrementUnreadChatCount" });
+    }
   }, [state.chatMessages]);
+
   function handleFieldChange(e) {
     const value = e.target.value;
     setState((draft) => {
