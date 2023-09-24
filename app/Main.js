@@ -30,7 +30,7 @@ const Chat = React.lazy(() => import("./components/Chat"));
 
 import LoadingDotsIcon from "./components/LoadingDotsIcon";
 
-Axios.defaults.baseURL = "http://localhost:8080";
+Axios.defaults.baseURL = process.env.BACKENDURL || "";
 
 function Main() {
   const initialState = {
